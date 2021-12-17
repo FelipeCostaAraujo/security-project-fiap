@@ -1,0 +1,32 @@
+version: "3"
+services:
+  node-client-api:
+    build: node-client-api
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    environment:
+      DB_HOST: db
+
+  node-product-api:
+    build: node-product-api
+    depends_on:
+      - db
+    ports:
+      - "3002:3002"
+    environment:
+      DB_HOST: db
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: P4SSW0rD
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_DATABASE: finalProject
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
