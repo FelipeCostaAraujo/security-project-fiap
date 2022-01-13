@@ -1,81 +1,48 @@
 var http = require('http'); 
 
-const express = require('express') 
+const express = require('express')
+var cors = require('cors')
 const app = express()
-const port = 3002
+const port = 3000
 
 const db = require("./db");
 
 var cookieParser = require('cookie-parser'); 
 const bodyParser = require('body-parser');
 
+
+app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: true })); 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cookieParser()); 
 
+var request = require('request');
+
+var host = process.env.DOCKER_HOST_IP || 'http://localhost'
+
 app.get('/products', async (req, res, next) => { 
-    var resp = await db.getAllProducts();
-    res.status(200).json(resp);
+    request(`${host}:3001/products`, function(err, body){
+        return res.json(JSON.parse(body.body));
+    });
 });
 
-app.post('/products', async (req, res, next) => { 
-
-    try{
-        var name = req.body.name;
-        var description = req.body.description
-        var value = req.body.value
-        
-        await db.insertProduct(name, description, value);
-        return res.status(200).json({message: 'Produto cadastrado com sucesso!'});
-
-    }catch(err){
-        return res.status(err.code).json(err);
-    }
-});
-
-app.get('/products/:id', async (req, res, next) => { 
-
-    try{
-        var id = req.params.id;
-        const [rows] = await db.getProductById(id);
-        if(rows){
-            return res.status(200).send(rows);
+app.post('/buy', async (req, res, next) => { 
+    request({
+        url: `${host}:3002/orders`,
+        headers: {'content-type' : 'application/json'},
+        method: 'POST',
+        body: JSON.stringify(req.body)
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        } else {
+            console.log(response.statusCode, body);
+            var resp = JSON.parse(body);
+            resp.status = response.statusCode;
+            return res.json(resp);
         }
-        return res.status(404).send(`Produto ${id} não encontrado!`);
-    }catch(err){
-        return res.status(err.code).json(err);
-    }
-});
-
-app.put('/products/:id', async (req, res, next) => { 
-
-    try{
-        var id = req.params.id;
-
-        var name = req.body.name;
-        var description = req.body.description
-        var value = req.body.value
-        
-        const rows = await db.updateProductById(id, name, description, value);
-        if(rows){
-            return res.status(200).send({message: "Produto atualizado com sucesso!"});
-        }
-        return res.status(404).send(`Produto ${id} atualizado com sucesso!`);
-    }catch(err){
-        return res.status(err.code).json(err);
-    }
-});
-
-app.delete('/products/:id', async (req, res, next) => {
-
-    try{
-        var id = req.params.id;
-        await db.deleteProductById(id);
-        return res.status(200).send({message: `Produto ${id} deletado com sucesso!`}); 
-
-    }catch(err){
-        return res.status(err.code).json(err);
-    }
+    });
 });
 
 

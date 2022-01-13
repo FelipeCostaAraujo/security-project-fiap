@@ -18,10 +18,10 @@ async function connect(){
     return connection;
 }
 
-async function getAllClients(){
+async function getAllProducts(){
     const conn = await connect();
     
-    const query = `SELECT * FROM clients LIMIT 1000;`;
+    const query = `SELECT * FROM products LIMIT 1000;`;
     console.log(`Executando query: ${query}`);
 
     const [rows, fields] = await connection.execute(query);
@@ -29,10 +29,10 @@ async function getAllClients(){
     return rows;
 }
 
-async function getClientById(id){
+async function getProductById(id){
     const conn = await connect();
     
-    const query = `SELECT * FROM clients WHERE id = "${id}";`;
+    const query = `SELECT * FROM products WHERE id = "${id}";`;
     console.log(`Executando query: ${query}`);
     
     const [rows, fields] = await connection.execute(query);
@@ -41,11 +41,11 @@ async function getClientById(id){
 }
 
 
-async function updateClientById(id, user, password){
+async function updateProductById(id, name, description, value){
     try{
         const conn = await connect();
     
-        const query = `UPDATE clients SET user = "${user}", password = "${password}" WHERE id = "${id}";`;
+        const query = `UPDATE products SET name = "${name}", description = "${description}", value = ${value} WHERE id = "${id}";`;
         console.log(`Executando query: ${query}`);
         
         const [rows] = await conn.execute(query);
@@ -55,30 +55,30 @@ async function updateClientById(id, user, password){
     }
 }
 
-async function deleteClientById(id){
+async function deleteProductById(id){
     const conn = await connect();
     
-    const query = `DELETE FROM clients WHERE id = "${id}";`;
+    const query = `DELETE FROM products WHERE id = "${id}";`;
     console.log(`Executando query: ${query}`);
 
     await connection.execute(query);
 }
 
-async function insertClient(user, password){
+async function insertProduct(name, description, value){
     const conn = await connect();
 
-    const query = `INSERT INTO clients(id, user, password) VALUES ("${randomUUID()}", "${user}", "${password}");`;
+    const query = `INSERT INTO products(id, name, description, value) VALUES ("${randomUUID()}", "${name}", "${description}", ${value});`;
     console.log(`Executando query: ${query}`);
 
     try{
         await connection.execute(query);
     }catch(err){
         if(err.errno === 1062){
-            throw {code: 400, message: 'Já existe um cliente cadastrado com este usuário!'};
+            throw {code: 400, message: 'Já existe um producte cadastrado com este usuário!'};
         }else{
             throw {code: 500, message: 'Erro inesperado ao tentar cadastrar usuário'};
         }
     }
 }
 
-module.exports = {getClientById, getAllClients, insertClient, updateClientById, deleteClientById}
+module.exports = {getProductById, getAllProducts, insertProduct, updateProductById, deleteProductById}

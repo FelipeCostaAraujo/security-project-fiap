@@ -17,6 +17,6 @@
     "express-rate-limit": "^5.5.1",
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.0"
+    "mysql2": "^2.3.3"
   }
 }

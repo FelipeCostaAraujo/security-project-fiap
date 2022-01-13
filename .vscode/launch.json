@@ -4,15 +4,42 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "pwa-node",
             "request": "launch",
-            "name": "Run node-client-api with nodemon",
+            "name": "Run node-bff-api with nodemon",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "runtimeExecutable": "nodemon",
-            "program": "${workspaceFolder}/node-client-api/app.js",
+            "program": "${workspaceFolder}/node-bff-api/app.js",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Run node-order-api with nodemon",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeExecutable": "nodemon",
+            "program": "${workspaceFolder}/node-order-api/app.js",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Run node-product-api with nodemon",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeExecutable": "nodemon",
+            "program": "${workspaceFolder}/node-product-api/app.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]

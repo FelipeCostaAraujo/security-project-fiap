@@ -10,17 +10,16 @@ import { HomeComponent } from './home/home.component';
 import { ROUTES } from './app.routes';
 
 import { AuthService } from './auth/auth.service';
-import { TimesheetsService } from './services/timesheets.service';
-import { UsersService } from './services/user.service';
+
+import { OrderService } from './services/order.service';
+import { ProductService } from './services/product.service';
+
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { ScopeGuardService } from './auth/scope-guard.service';
 import { ProfileComponent } from './profile/profile.component';
 import { CallbackComponent } from './callback/callback.component';
-import { TimesheetListComponent } from './timesheet-list/timesheet-list.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { TimesheetAddComponent } from './timesheet-add/timesheet-add.component';
-import { ApprovalComponent } from './approval/approval.component';
+import { ShopComponent } from './shop/shop.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -35,10 +34,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HomeComponent,
     ProfileComponent,
     CallbackComponent,
-    UserListComponent,
-    TimesheetListComponent,
-    TimesheetAddComponent,
-    ApprovalComponent
+    ShopComponent
+
   ],
   imports: [
     BrowserModule,
@@ -55,8 +52,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
     },
-    TimesheetsService,
-    UsersService
+    OrderService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,11 +1,14 @@
 FROM node:14.17.4-alpine
-EXPOSE 3002
+EXPOSE 3000
 
 WORKDIR /home/app
 
 COPY . /home/app
 
 RUN npm i express \ 
-    && npm i mysql2
+    && npm i mysql2 \
+    && npm i cors \
+    && npm i request
+
 
 CMD node app.js

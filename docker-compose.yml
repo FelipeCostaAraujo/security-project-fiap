@@ -1,7 +1,19 @@
 version: "3"
 services:
-  node-client-api:
-    build: node-client-api
+  node-bff-api:
+    build: node-bff-api
+    depends_on:
+      - db
+      - node-product-api
+      - node-order-api
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DOCKER_HOST_IP: http://172.17.0.1
+
+  node-product-api:
+    build: node-product-api
     depends_on:
       - db
     ports:
@@ -9,8 +21,8 @@ services:
     environment:
       DB_HOST: db
 
-  node-product-api:
-    build: node-product-api
+  node-order-api:
+    build: node-order-api
     depends_on:
       - db
     ports:

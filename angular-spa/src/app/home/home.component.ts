@@ -10,7 +10,16 @@ export class HomeComponent implements OnInit {
 
   constructor(public auth: AuthService) { }
 
+  profile: any;
+
   ngOnInit() {
+    if (this.auth.userProfile) {
+      this.profile = this.auth.userProfile;
+    } else {
+      this.auth.getProfile((err, profile) => {
+        this.profile = profile;
+      });
+    }
   }
 
 }
