@@ -40,12 +40,14 @@ Ao executar os serviços, os mesmos serão expostos nos endereços:
 4. API Produto de produtos (products): http://localhost:3002;
 5. Banco de dados: localhost:3306;
 
-### VSCode
-
-Foi disponibilizado na raiz do projeto o arquivo `.vscode\launch.json` para que seja possível iniciar a execução dos 3 serviços de backend diretamente no terminal integrado do VSCode com debug e nodemon para live reload.
-
 ### Docker
 
-Foi disponibilizada toda a configuração Docker com Docker Compose para que todo o ecossistema de serviços seja executado através do comando: `docker-compose up`.
+Foi disponibilizada toda a configuração Docker com Docker Compose para que todo o ecossistema de serviços seja executado através do comando: `docker-compose up` executando os projetos com `ng serve` e `nodemon`, sendo assim, qualquer alteração no código reflete diretamente na aplicação em execução no container.
 
-Para executar o frontend, utilize o comando: `ng serve` na pasta raiz do mesmo.
+### Debugando a API
+
+Caso seja necessário debugar uma das aplicações, execute o docker-compose removendo o serviço a ser debugado e executando o `npm install` e o `nodemon app.js` do serviço em questão. Por exemplo, caso deseje debugar apenas a API `node-bff-api`, siga o passo a passo:
+1. Na raiz do projeto final execute: `docker-compose up db node-product-api node-order-api ui`
+2. Na subpasta do respectivo serviço (`node-bff-api`), execute `npm install` e em seguida execute a config `Run node-bff-api with nodemon`* no player do VSCode.
+
+\* Ao executar essa configuração, caso ocorra erro de binário não encontrado para o nodemon, execute o comando: `npm i -g nodemon` e tente novamente.

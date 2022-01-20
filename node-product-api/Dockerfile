@@ -5,7 +5,11 @@ WORKDIR /home/app
 
 COPY . /home/app
 
-RUN npm i express \ 
-    && npm i mysql2
+ENV PATH /home/node_modules/bin:$PATH
 
-CMD node app.js
+RUN npm config set prefix "/home/node_modules" \
+    && npm i express \ 
+    && npm i mysql2\
+    && npm i -g nodemon
+
+CMD nodemon app.js
