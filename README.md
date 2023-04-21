@@ -47,7 +47,7 @@ Caso seja necessário debugar a API, execute o somente o banco de dados via dock
 
 ## Consumindo a API
 
-Para fins de teste, foi disponibilizado na raiz do projeto uma Postman collection chamada `ProjetoFinal.postman_collection.json` para que seja possível realizar testes facilmente.
+Para fins de teste, foi disponibilizado na raiz do projeto uma collection Insomnia chamada `collectionProjetoFinal.yaml` para que seja possível realizar testes facilmente.
 
 ## DICA 1:
 

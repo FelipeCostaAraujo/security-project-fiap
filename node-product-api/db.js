@@ -1,10 +1,10 @@
-const { randomUUID } = require('crypto');
+import { randomUUID } from 'crypto';
+import { mysql } from "mysql2/promise";
 
 async function connect(){
     if(global.connection && global.connection.state !== 'disconnected')
         return global.connection;
  
-    const mysql = require("mysql2/promise");
     const connection = await mysql.createConnection({
         host: process.env.DB_HOST || 'localhost',
         port: 3306,
@@ -81,4 +81,4 @@ async function insertProduct(name, description, value){
     }
 }
 
-module.exports = {getProductById, getAllProducts, insertProduct, updateProductById, deleteProductById}
+export default {getProductById, getAllProducts, insertProduct, updateProductById, deleteProductById}

@@ -1,16 +1,16 @@
-var http = require('http'); 
+import http from 'http'; 
 
-const express = require('express') 
+import express from 'express'; 
 const app = express()
 const port = 3001
 
-const db = require("./db");
+import db from "./db";
 
-var cookieParser = require('cookie-parser'); 
-const bodyParser = require('body-parser');
+import cookieParser from 'cookie-parser'; 
+import { urlencoded, json } from 'body-parser';
 
-app.use(bodyParser.urlencoded({ extended: true })); 
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: true })); 
+app.use(json());
 app.use(cookieParser()); 
 
 app.get('/products', async (req, res, next) => { 
