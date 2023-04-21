@@ -2,52 +2,60 @@
 
 Seja bem vindo ao projeto final da disciplina de Segurança em Aplicações! 
 
-Neste projeto, aplicaremos os conhecimentos adquiridos ao longo da disciplina a fim de mitigar vulnerabilidades em um ambiente complexo de microsserviços.
+Neste projeto, aplicaremos os conhecimentos adquiridos ao longo da disciplina em um contexto reduzido.
 
 ## Contexto
 
-O projeto é composto por uma Loja virtual operada através de APIs, e sua arquitetura é composta por:
+O projeto contém uma API de Produtos que efetua as 4 operações do CRUD (*Create*, *Read*, *Update* e *Delete*)
 
-1. Web App Angular (Frontend) responsável por disponibilizar a interface gráfica na Web da Loja Virtual.
-2. API Orquestradora (Backend For Frontend) responsável por orquestras as chamadas as APIs produto e consolidar informações para o Frontend.
-3. API Produto de pedidos (orders) responsável pelo CRUD de Pedidos;
-4. API Produto de produtos (products) responsável pelo CRUD de Produtos;
-5. Banco de dados único, responsável por conter as tabelas relacionais para armazenamento de dados;
-
-Atualmente, o Frontend já possui Autenticação implementada através do provider auth0 conforme visto no laboratório da Aula de Autorização e Autenticação e OAuth 2.0.
+O objetivo é tornarmos esta API segura utilizando das técnicas executadas em aula.
 
 ## Pre-requisito
 
-Antes de iniciarmos o desafio, faz-se necessário que seja configurada a integração com o ambiente da auth0 conforme visto no laboratório da Aula 7 sobre Autorização e Autenticação e OAuth 2.0.
+Antes de iniciarmos o desafio, configure a API products no console do Auth0 conforme visto no laboratório da Aula 7 sobre Autorização e Autenticação e OAuth 2.0. 
+* Atente-se ao endpoint e a porta em questão neste desafio.
 
 ## Challenge
 
-O desafio consiste em mitigar as vulnerabilidades e vertentes de ataque conhecidas e exploradas durante a disciplina em todos os serviços do ecossistema, segue abaixo relação destas e seu peso de composição na nota:
+O desafio consiste em mitigar as vulnerabilidades e vertentes de ataque conhecidas e exploradas durante a disciplina desta API, sendo estes:
 
-1. Broken Authentication (0.4);
-2. Man In The Middle/Sniffing (0.3);
-3. Code Injection (0.3);
-
-Serão avaliadas todas as supracitadas em todas as camadas de comunicação, por isso é importante aplicar medidas e boas praticas de mitigação destas em todos os serviços do ecossistema.
+1. Mitigar Broken Authentication e Broken Access Control através da implementação de OAuth (0.2); (consulte Dica 1);
+2. Mitigar Man In The Middle/Sniffing através da implementação de comunicação via HTTPS (0.2);
+3. Mitigar Code Injection através da implementação de validação de campos de entrada e a utilização de Prepared Statements nas comunicações com o Banco de Dados (0.2);
+4. Mitigar Brute Force/Dictionary Attack através da implementação de RateLimit na API (0.2);
+5. Aplicação executando e funcionando corretamente (0.2). 
 
 ## Executando a aplicação
 
-Ao executar os serviços, os mesmos serão expostos nos endereços:
-
-1. Web App Angular (Frontend): http://localhost:4200;
-2. API Orquestradora (Backend For Frontend): http://localhost:3000;
-3. API Produto de pedidos (orders): http://localhost:3001;
-4. API Produto de produtos (products): http://localhost:3002;
-5. Banco de dados: localhost:3306;
-
 ### Docker
 
-Foi disponibilizada toda a configuração Docker com Docker Compose para que todo o ecossistema de serviços seja executado através do comando: `docker-compose up` executando os projetos com `ng serve` e `nodemon`, sendo assim, qualquer alteração no código reflete diretamente na aplicação em execução no container.
+Foi disponibilizada toda a configuração Docker com Docker Compose para executar o Banco de Dados e a API através do comando: `docker-compose up` executando o projeto com `nodemon`, sendo assim, qualquer alteração no código reflete diretamente na aplicação em execução no container.
+
+Ao executar, os mesmos serão expostos nos endereços:
+
+1. API Produto de produtos (products): http://localhost:3001;
+2. Banco de dados: localhost:3306;
 
 ### Debugando a API
 
-Caso seja necessário debugar uma das aplicações, execute o docker-compose removendo o serviço a ser debugado e executando o `npm install` e o `nodemon app.js` do serviço em questão. Por exemplo, caso deseje debugar apenas a API `node-bff-api`, siga o passo a passo:
-1. Na raiz do projeto final execute: `docker-compose up db node-product-api node-order-api ui`
-2. Na subpasta do respectivo serviço (`node-bff-api`), execute `npm install` e em seguida execute a config `Run node-bff-api with nodemon`* no player do VSCode.
+Caso seja necessário debugar a API, execute o somente o banco de dados via docker-compose (comando: `docker-compose up db`) e execute a API com `npm install` e o VSCode. Por exemplo:
+1. Na raiz do projeto execute: `docker-compose up db`
+2. Na subpasta da API, execute `npm install` e em seguida execute a config `Run node-product-api with nodemon`* no player do VSCode.
 
 \* Ao executar essa configuração, caso ocorra erro de binário não encontrado para o nodemon, execute o comando: `npm i -g nodemon` e tente novamente.
+
+
+## Consumindo a API
+
+Para fins de teste, foi disponibilizado na raiz do projeto uma Postman collection chamada `ProjetoFinal.postman_collection.json` para que seja possível realizar testes facilmente.
+
+## DICA 1:
+
+Para facilitar os testes, podemos gerar tokens no console do Auth0 para consumir a API passando token pelo Insomnia, para isso siga os passos abaixo:
+1. Tendo a aplicação e a API products devidamente configuradas no Auth0, no console, vá em `Applications` -> `APIs`;
+2. Selecione a API que você criou para o endpoint products;
+3. Clique na aba `Test`, você será questionado sobre criar uma aplicação para teste, permita;
+4. Utilize o curl fornecido para gerar o token.
+
+## DICA 2:
+Se preferir, para gerar o token, na collection Insomnia presente nesta mesma pasta, existe uma request pronta para esta finalidade chamada `Generate Token`, altere a `url`, o `clientId` e o `clientSecret` para os seus valores e está pronta para ser utilizada.

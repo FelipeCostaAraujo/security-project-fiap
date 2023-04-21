@@ -1,31 +1,5 @@
 version: "3"
 services:
-  ui:
-    image: ng
-    build:
-      context: angular-spa/
-      dockerfile: Dockerfile
-    ports:
-      - 4200:4200
-    volumes:
-      - ./angular-spa/src:/home/app/src
-      - /home/app/node_modules
-
-  node-bff-api:
-    build: node-bff-api
-    depends_on:
-      - db
-      - node-product-api
-      - node-order-api
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./node-bff-api:/home/app
-      - /home/app/node_modules
-    environment:
-      DB_HOST: db
-      DOCKER_HOST_IP: http://172.17.0.1
-
   node-product-api:
     build: node-product-api
     depends_on:
@@ -38,25 +12,13 @@ services:
     environment:
       DB_HOST: db
 
-  node-order-api:
-    build: node-order-api
-    depends_on:
-      - db
-    ports:
-      - "3002:3002"
-    volumes:
-      - ./node-order-api:/home/app
-      - /home/app/node_modules
-    environment:
-      DB_HOST: db
-
   db:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: P4SSW0rD
       MYSQL_USER: test
       MYSQL_PASSWORD: test
-      MYSQL_DATABASE: finalProject
+      MYSQL_DATABASE: finalProjectSubst
     ports:
       - "3306:3306"
     volumes:

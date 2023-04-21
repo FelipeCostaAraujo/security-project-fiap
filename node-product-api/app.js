@@ -33,6 +33,7 @@ app.post('/products', async (req, res, next) => {
     }
 });
 
+
 app.get('/products/:id', async (req, res, next) => { 
 
     try{

@@ -1,0 +1,219 @@
+_type: export
+__export_format: 4
+__export_date: 2023-04-21T00:53:12.012Z
+__export_source: insomnia.desktop.app:v2023.1.0
+resources:
+  - _id: req_0a47f094d74c4afba3b2f9604db12843
+    parentId: wrk_d715d89196a04ac4b79a4a17113ffc11
+    modified: 1682038332247
+    created: 1682038016493
+    url: https://suaURL.us.auth0.com/oauth/token
+    name: Generate token
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"client_id": "seuClientId",
+        	"client_secret": "seuSecret",
+        	"audience": "http://localhost:4200",
+        	"grant_type": "client_credentials"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1682038001900
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_d715d89196a04ac4b79a4a17113ffc11
+    parentId: null
+    modified: 1682038003187
+    created: 1682038003187
+    name: My Document
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: req_0e4a1f9532f64cf297998b229b97c5de
+    parentId: wrk_d715d89196a04ac4b79a4a17113ffc11
+    modified: 1682038342635
+    created: 1682038001948
+    url: http://localhost:3001/products
+    name: products
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1682038001896.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_03c7393aa27c4234af73af31b2e4dbc0
+    parentId: wrk_d715d89196a04ac4b79a4a17113ffc11
+    modified: 1682038341718
+    created: 1682038001947
+    url: http://localhost:3001/products/1cf641f0-19a1-4699-94f6-5cc45c061ca8
+    name: products/:id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1682038001893.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_25d34aeeef334ad99258fc8f8f524ba1
+    parentId: wrk_d715d89196a04ac4b79a4a17113ffc11
+    modified: 1682038340336
+    created: 1682038001945
+    url: http://localhost:3001/products
+    name: products
+    description: ""
+    method: POST
+    body:
+      mimeType: ""
+      text: |-
+        {
+            "name": "Produto XPTO",
+            "description": "Meu produto de teste de API",
+            "value": 200
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1682038001887.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_cc9c4527923e4af8be7aa903a865c185
+    parentId: wrk_d715d89196a04ac4b79a4a17113ffc11
+    modified: 1682038338275
+    created: 1682038001944
+    url: http://localhost:3001/products/acfda577-c36e-465d-9984-2ad98b7f642c
+    name: products/:id
+    description: ""
+    method: PUT
+    body:
+      mimeType: ""
+      text: |-
+        {
+            "name": "Produto XPTO",
+            "description": "Meu produto de teste de API atualizado",
+            "value": 200
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1682038001875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_06cae0fe50f9421eb49d96615e6feddb
+    parentId: wrk_d715d89196a04ac4b79a4a17113ffc11
+    modified: 1682038336364
+    created: 1682038001940
+    url: http://localhost:3001/products/acfda577-c36e-465d-9984-2ad98b7f642c
+    name: products/:id
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1682038001850
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_12d333a03b25cab26ea1827c347687994e63d99b
+    parentId: wrk_d715d89196a04ac4b79a4a17113ffc11
+    modified: 1682038006231
+    created: 1682038006231
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1682038006232
+    _type: environment
+  - _id: jar_12d333a03b25cab26ea1827c347687994e63d99b
+    parentId: wrk_d715d89196a04ac4b79a4a17113ffc11
+    modified: 1682038068645
+    created: 1682038006255
+    name: Default Jar
+    cookies:
+      - key: did
+        value: s%3Av0%3A23367a60-dfde-11ed-818f-b39b17c9f198.40sAdnWsT%2BU9GQucayj9ft0sGUNEvjSN62wYY78TwBU
+        expires: 2024-04-20T06:47:48.000Z
+        maxAge: 31557600
+        domain: dev-aivd9uma.us.auth0.com
+        path: /
+        secure: true
+        httpOnly: true
+        extensions:
+          - SameSite=None
+        hostOnly: true
+        creation: 2023-04-21T00:47:48.644Z
+        lastAccessed: 2023-04-21T00:47:48.644Z
+        id: "20869885536060684"
+      - key: did_compat
+        value: s%3Av0%3A23367a60-dfde-11ed-818f-b39b17c9f198.40sAdnWsT%2BU9GQucayj9ft0sGUNEvjSN62wYY78TwBU
+        expires: 2024-04-20T06:47:48.000Z
+        maxAge: 31557600
+        domain: dev-aivd9uma.us.auth0.com
+        path: /
+        secure: true
+        httpOnly: true
+        hostOnly: true
+        creation: 2023-04-21T00:47:48.645Z
+        lastAccessed: 2023-04-21T00:47:48.645Z
+        id: "7781935586894253"
+    _type: cookie_jar
+  - _id: spc_8eb268322f7747659f9c7ba31aef145e
+    parentId: wrk_d715d89196a04ac4b79a4a17113ffc11
+    modified: 1682038325545
+    created: 1682038003188
+    fileName: ProjetoFinal
+    contents: ""
+    contentType: yaml
+    _type: api_spec
