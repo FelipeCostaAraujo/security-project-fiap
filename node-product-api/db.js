@@ -1,8 +1,5 @@
 import { randomUUID } from 'crypto';
-//import pkg from 'mysql2/promise';
-//import { mysql2 } from 'mysql2';
 import mysql2 from 'mysql2/promise';
-//const { mysql2 } = pkg;
 
 async function connect(){
     if(global.connection && global.connection.state !== 'disconnected')
