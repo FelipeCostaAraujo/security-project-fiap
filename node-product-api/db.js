@@ -1,12 +1,14 @@
 import { randomUUID } from 'crypto';
-import pkg from 'mysql2/promise';
-const { mysql } = pkg;
+//import pkg from 'mysql2/promise';
+//import { mysql2 } from 'mysql2';
+import mysql2 from 'mysql2/promise';
+//const { mysql2 } = pkg;
 
 async function connect(){
     if(global.connection && global.connection.state !== 'disconnected')
         return global.connection;
  
-    const connection = await mysql.createConnection({
+    const connection = await mysql2.createConnection({
         host: process.env.DB_HOST || 'localhost',
         port: 3306,
         user: 'test',

@@ -14,7 +14,7 @@ var limiter = new rateLimit({
 
 const checkJwt = auth({
     audience: 'http://localhost:4200',
-    issuerBaseURL: `https://dev-aivd9uma.us.auth0.com`,
+    issuerBaseURL: `https://dev-n82m667qeh2rwuwa.us.auth0.com`,
 });
 
 const app = express()
@@ -29,7 +29,7 @@ app.get('/products', async (req, res, next) => {
     res.status(200).json(resp);
 });
 
-app.post('/products', async (req, res, next) => {
+app.post('/products', checkJwt, async (req, res, next) => {
 
     try {
         var name = req.body.name;
@@ -59,7 +59,7 @@ app.get('/products/:id', async (req, res, next) => {
     }
 });
 
-app.put('/products/:id', async (req, res, next) => {
+app.put('/products/:id', checkJwt, async (req, res, next) => {
 
     try {
         var id = req.params.id;
@@ -78,7 +78,7 @@ app.put('/products/:id', async (req, res, next) => {
     }
 });
 
-app.delete('/products/:id', async (req, res, next) => {
+app.delete('/products/:id', checkJwt, async (req, res, next) => {
 
     try {
         var id = req.params.id;
@@ -93,4 +93,25 @@ app.delete('/products/:id', async (req, res, next) => {
 
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`)
+});
+
+app.post('/register', async (req, res, next) => {
+
+    if (!req.body.username.match("^[A-Za-z0-9]{5,}")) {
+        return res.status(400).json({ error: "Usuário Inválido", message: "Deve conter ao menos 5 caracteres entre maiúsculas, minúsculas e numéricos e caracteres especiais" });
+    }
+
+    if (!req.body.password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{10,})")) {
+        return res.status(422).json({ error: "A senha é muito fraca", message: "Deve conter ao menos 10 caracteres entre maiúsculas, minúsculas, numéricos e caracteres especiais" });
+    }
+
+    try {
+        const users = await db.insertUser(req.body.username, cript.hash(req.body.password));
+        if (users.affectedRows) {
+            console.log(`Usuário ${req.body.username} registrado com sucesso!`);
+            return res.status(201).send();
+        }
+    } catch (err) {
+        return res.status(err.code).json(err);
+    }
 });

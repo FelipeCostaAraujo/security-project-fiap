@@ -1,15 +1,13 @@
 FROM node:14.17.4-alpine
-EXPOSE 3001
 
 WORKDIR /home/app
 
-COPY . /home/app
+COPY package*.json ./
 
-ENV PATH /home/node_modules/bin:$PATH
+RUN npm install
+COPY . .
+EXPOSE 3001
 
-RUN npm config set prefix "/home/node_modules" \
-    && npm i express \ 
-    && npm i mysql2\
-    && npm i -g nodemon
+RUN  npm i -g nodemon
 
-CMD nodemon app.js
+CMD npm run dev
