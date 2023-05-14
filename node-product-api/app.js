@@ -1,13 +1,20 @@
 import express from 'express';
 import db from "./db.js";
 import cookieParser from 'cookie-parser';
-import rateLimit from 'express-rate-limit'
+import rateLimit from 'express-rate-limit';
+import { auth, requiredScopes } from 'express-oauth2-jwt-bearer';
+import cript from './cript.js';
 
 var limiter = new rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 50,
     delayMs: 0,
     message: "Too many accounts created from this IP, please try again after an hour",
+});
+
+const checkJwt = auth({
+    audience: 'http://localhost:4200',
+    issuerBaseURL: `https://dev-aivd9uma.us.auth0.com`,
 });
 
 const app = express()
