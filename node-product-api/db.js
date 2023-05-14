@@ -1,5 +1,6 @@
 import { randomUUID } from 'crypto';
-import { mysql } from "mysql2/promise";
+import pkg from 'mysql2/promise';
+const { mysql } = pkg;
 
 async function connect(){
     if(global.connection && global.connection.state !== 'disconnected')
@@ -11,7 +12,7 @@ async function connect(){
         user: 'test',
         password: 'test',
         database: 'finalProjectSubst',
-        multipleStatements: true
+        multipleStatements: true,
       } );
     console.log("Conectou no MySQL!");
     global.connection = connection;

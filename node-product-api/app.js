@@ -1,14 +1,12 @@
 import express from 'express'; 
+import db from "./db.js";
+import cookieParser from 'cookie-parser'; 
+
+
 const app = express()
 const port = 3001
 
-import db from "./db";
-
-import cookieParser from 'cookie-parser'; 
-import { urlencoded, json } from 'body-parser';
-
-app.use(urlencoded({ extended: true })); 
-app.use(json());
+app.use(express.json());
 app.use(cookieParser()); 
 
 app.get('/products', async (req, res, next) => { 
