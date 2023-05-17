@@ -2,6 +2,9 @@ import express from 'express';
 import db from "./db.js";
 import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
+import fs from 'fs';
+import https from 'https';
 import { auth, requiredScopes } from 'express-oauth2-jwt-bearer';
 import cript from './cript.js';
 
@@ -23,6 +26,19 @@ const port = 3001
 app.use(express.json());
 app.use(cookieParser());
 app.use(limiter);
+
+var privateKey  = fs.readFileSync('sslcert/selfsigned.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/selfsigned.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
+var httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(port);
+
+// app.listen(port, () => {
+//     console.log(`Listening at http://localhost:${port}`)
+// });
 
 app.get('/products', async (req, res, next) => {
     var resp = await db.getAllProducts();
@@ -88,11 +104,6 @@ app.delete('/products/:id', checkJwt, async (req, res, next) => {
     } catch (err) {
         return res.status(err.code).json(err);
     }
-});
-
-
-app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}`)
 });
 
 app.post('/register', async (req, res, next) => {

@@ -24,7 +24,7 @@ async function getAllProducts() {
   const query = 'SELECT * FROM products LIMIT 1000;';
   console.log(`Executando query: ${query}`);
 
-  const [rows, fields] = await conn.execute(query);
+  const [rows] = await conn.execute(query);
   console.log(`Rows: ${JSON.stringify(rows)}`);
   return rows;
 }
@@ -35,7 +35,7 @@ async function getProductById(id) {
   const query = 'SELECT * FROM products WHERE id = ?;';
   console.log(`Executando query: ${query}`);
 
-  const [rows, fields] = await conn.execute(query, [id]);
+  const [rows] = await conn.execute(query, [id]);
 
   return rows;
 }
