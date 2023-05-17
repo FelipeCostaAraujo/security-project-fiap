@@ -2,14 +2,15 @@ name: build
 on:
   push:
     branches:
-    - main
+    - master
   pull_request:
 jobs:
   build:
     name: Build
     defaults:
       run:
-        working-directory: ./node-product-api
+        working-directory: ./node-production
+    runs-on: ubuntu-20.04    
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
