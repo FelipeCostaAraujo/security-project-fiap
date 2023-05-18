@@ -7,9 +7,6 @@ on:
 jobs:
   build:
     name: Build
-    defaults:
-      run:
-        working-directory: ./node-product-api
     runs-on: ubuntu-20.04    
     steps:
     - name: Checkout code
