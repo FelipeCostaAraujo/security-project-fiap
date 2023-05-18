@@ -2,7 +2,6 @@ import express from 'express';
 import db from "./db.js";
 import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
-import path from 'path';
 import fs from 'fs';
 import https from 'https';
 import { auth, requiredScopes } from 'express-oauth2-jwt-bearer';
